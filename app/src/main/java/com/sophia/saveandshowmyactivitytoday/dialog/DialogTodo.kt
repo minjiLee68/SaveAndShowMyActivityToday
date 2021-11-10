@@ -8,7 +8,7 @@ import android.os.Bundle
 import com.sophia.saveandshowmyactivitytoday.CustomDialogInterface
 import com.sophia.saveandshowmyactivitytoday.databinding.TodoDialogBinding
 
-class Dialog(context: Context, dialogInterface: CustomDialogInterface): Dialog(context) {
+class DialogTodo(context: Context, dialogInterface: CustomDialogInterface): Dialog(context) {
 
     private lateinit var binding: TodoDialogBinding
     private var customDialogInterface = dialogInterface
