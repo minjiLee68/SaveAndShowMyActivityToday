@@ -18,20 +18,23 @@ class TodoViewModel(private val repository: TodoRepository): ViewModel() {
     val currentData: LiveData<TodoEntity>
         get() = _currentData
 
-    fun addTodo(content: String, year: Int, month: Int, day: Int) {
+    val listLiveData = repository.getAll()
+
+    fun addTodo(content: String, year: Int, month: Int, day: Int, date: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val todo = TodoEntity(content,year, month, day)
+            val todo = TodoEntity(content,year, month, day, date)
             repository.addTodo(todo)
         }
     }
 
-    fun updateTodo(content: String, year: Int, month: Int, day: Int) {
+    fun updateTodo(content: String, year: Int, month: Int, day: Int, date: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val todo = currentData.value?.apply {
                 this.content = content
                 this.year = year
                 this.month = month
                 this.day = day
+                this.date = date
             } ?: throw Exception("")
             repository.updateTodo(todo)
         }

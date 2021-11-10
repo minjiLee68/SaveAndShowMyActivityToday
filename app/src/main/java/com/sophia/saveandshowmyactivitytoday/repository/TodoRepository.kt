@@ -21,6 +21,9 @@ class TodoRepository(application: Application) {
 
     val readAllData: LiveData<List<TodoEntity>> = todoDao.readAllData()
 
+    fun getAll(): LiveData<List<TodoEntity>> =
+        todoDao.getAll()
+
     fun readDateData(year: Int, month: Int, day: Int): LiveData<List<TodoEntity>> =
         todoDao.readDateData(year, month, day)
 

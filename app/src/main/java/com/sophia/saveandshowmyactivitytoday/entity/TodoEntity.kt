@@ -14,6 +14,9 @@ data class TodoEntity(
     var month: Int,
     @ColumnInfo(name = "day")
     var day: Int,
+    @ColumnInfo(name = "date")
+    var date: String,
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
+    val id: Int = 0,
+    var check: Boolean = false
 )
