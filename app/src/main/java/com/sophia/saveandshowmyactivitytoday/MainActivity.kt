@@ -7,21 +7,25 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sophia.saveandshowmyactivitytoday.adapter.TodoAdapter
 import com.sophia.saveandshowmyactivitytoday.databinding.ActivityMainBinding
 import com.sophia.saveandshowmyactivitytoday.databinding.LayoutBottomSheetBinding
 import com.sophia.saveandshowmyactivitytoday.dialog.DialogTodo
+import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity(), CustomDialogInterface {
+class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckInterface {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: TodoAdapter
@@ -74,7 +78,7 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface {
     }
 
     private fun initRecyclerview() {
-        adapter = TodoAdapter(viewmodel)
+        adapter = TodoAdapter(this,viewmodel)
         binding.recyclerView.let {
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -83,44 +87,31 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface {
     }
 
     private fun bottomSheetButton() {
-
         val bottomSheetDialog = BottomSheetDialog(
-            this, R.style.BottomSheetDialogTheme
-        )
-        val inflater: LayoutInflater =
-            getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//        val bottomSheetView = LayoutInflater.from(applicationContext).inflate(
-//            R.layout.layout_bottom_sheet, findViewById<LinearLayout>(R.id.bottom_sheet)
-//        )
+            this, R.style.BottomSheetDialogTheme)
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
         val bottomSheetView = inflater.inflate(
             R.layout.layout_bottom_sheet,
             findViewById<LinearLayout>(R.id.bottom_sheet),
             false
         )
-        bottomSheetView.findViewById<View>(R.id.image_top).setOnClickListener {
-            bottomSheetDialog.dismiss()
-        }
-        bottomSheetDialog.setContentView(bottomSheetView)
+
         binding.bottomSheet.setOnClickListener {
             bottomSheetDialog.show()
         }
 
-//        binding.bottomSheet.setOnClickListener {
-//            val bottomSheetDialog = BottomSheetDialog(
-//                this, R.style.BottomSheetStyle
-//            )
-//            val bottomSheetView: View = LayoutInflater.from(applicationContext)
-//                .inflate(R.layout.layout_bottom_sheet, findViewById(R.id.bottom_sheet_container))
-//            bottomSheetView.setOnClickListener {
-//                Toast.makeText(this, "Share...", Toast.LENGTH_SHORT).show()
-//                bottomSheetDialog.dismiss()
-//            }
-//            bottomSheetDialog.setContentView(bottomSheetView)
-//            bottomSheetDialog.show()
-//        }
+        bottomSheetView.findViewById<View>(R.id.image_top).setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+        bottomSheetDialog.setContentView(bottomSheetView)
     }
 
     override fun onOkButtonClicked(content: String) {
         viewmodel.addTodo(content, year, month, day, sdf)
+    }
+
+    override fun checkPosition(position: Int) {
+
     }
 }

@@ -32,30 +32,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/calendar_2"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="20dp"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:padding="5dp"-->
-        <!--            android:src="@drawable/ic_calender"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/edit_todo"-->
-        <!--            app:tint="#579892" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/setDate"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="5dp"-->
-        <!--            android:layout_marginTop="25dp"-->
-        <!--            android:text="Set Date"-->
-        <!--            android:textColor="#579892"-->
-        <!--            android:textSize="16sp"-->
-        <!--            app:layout_constraintStart_toEndOf="@id/calendar_2"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/edit_todo" />-->
-
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
