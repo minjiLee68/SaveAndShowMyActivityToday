@@ -1,25 +1,15 @@
 package com.sophia.saveandshowmyactivitytoday.adapter
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sophia.saveandshowmyactivitytoday.BottomSheet
-import com.sophia.saveandshowmyactivitytoday.CheckInterface
 import com.sophia.saveandshowmyactivitytoday.R
 import com.sophia.saveandshowmyactivitytoday.databinding.ListItemBinding
 import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
-import java.io.Serializable
 
 class TodoAdapter(
     private val viewModel: TodoViewModel,
@@ -33,13 +23,12 @@ class TodoAdapter(
             oldItem.id == newItem.id && oldItem.content == newItem.content
     }
 
-), Serializable {
+) {
 
     private var checkPosition = mutableListOf<CheckBox>()
-    private var deleteList: ArrayList<TodoEntity> = ArrayList()
 
-    inner class TodoViewHolder(private val binding: ListItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class TodoViewHolder(private val binding: ListItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var todoViewModel: TodoViewModel
 
@@ -58,32 +47,35 @@ class TodoAdapter(
             binding.checkbox.isChecked = checkPosition[num].checked
 
 //            binding.checkbox.setOnCheckedChangeListener { _, check ->
-//                todo.check = check
-//                if (todo.check) {
-////                    binding.root.visibility = View.GONE
-////                    val params: RecyclerView.LayoutParams = RecyclerView.LayoutParams(
-////                        ViewGroup.LayoutParams.MATCH_PARENT,
-////                        ViewGroup.LayoutParams.MATCH_PARENT
-////                    )
-////                    params.width = 0
-////                    params.height = 0
-////                    itemView.requestLayout()
-//                    listener.checkPosition(bindingAdapterPosition)
-//                } else {
-//                    itemView.visibility = View.VISIBLE
+//                if (check) {
+//                    val todo = TodoEntity(todo.content, todo.year, todo.month,
+//                        todo.day, todo.date, todo.id, true)
+//                    viewModel.updateTodo(todo)
 //                }
+//                else {
+//                    val todo = TodoEntity(todo.content, todo.year, todo.month,
+//                        todo.day, todo.date, todo.id, false)
+//                    viewModel.updateTodo(todo)
+//                }
+//                checkPosition[num].checked = binding.checkbox.isChecked
 //            }
+
             binding.checkbox.setOnClickListener {
+                val deleteList: ArrayList<TodoEntity> = ArrayList()
                 checkPosition[num].checked = binding.checkbox.isChecked
+
+                if (binding.checkbox.isChecked) {
+                    val todo1 = TodoEntity(todo.content, todo.year, todo.month,
+                        todo.day, todo.date, todo.id, true)
+                    viewModel.updateTodo(todo1)
+                }
+                else {
+                    val todo2 = TodoEntity(todo.content, todo.year, todo.month,
+                        todo.day, todo.date, todo.id, false)
+                    viewModel.updateTodo(todo2)
+                }
                 deleteList.add(todo)
-                viewModel.deleteList = deleteList
                 viewModel.deleteTodo(todo)
-
-//                val intent = Intent(binding.root.context, BottomSheet::class.java)
-//                intent.putExtra("deleteList",deleteList)
-//                ContextCompat.startActivity(binding.root.context, intent,null)
-
-
             }
         }
     }
@@ -100,5 +92,6 @@ class TodoAdapter(
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         holder.bind(currentList[position], viewModel, position)
     }
+
 }
 

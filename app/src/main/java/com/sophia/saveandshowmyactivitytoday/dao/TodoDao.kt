@@ -2,6 +2,7 @@ package com.sophia.saveandshowmyactivitytoday.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.sophia.saveandshowmyactivitytoday.entity.CheckList
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 
 @Dao
@@ -15,11 +16,14 @@ interface TodoDao {
     fun readAllData(): LiveData<List<TodoEntity>>
 
     //체크한 메모만 출력
-    @Query("SELECT * FROM todo WHERE 'check' = 1 ORDER BY year DESC, month DESC, day DESC, id DESC")
+    @Query("SELECT * FROM todo WHERE `check` = 1 ORDER BY year DESC, month DESC, day DESC, id DESC")
     fun readDoneData(): LiveData<List<TodoEntity>>
 
     @Query("SELECT * FROM todo ORDER BY id DESC")
     fun getAll(): LiveData<List<TodoEntity>>
+
+    @Insert
+    fun checkTodo(todo: TodoEntity)
 
     @Insert
     fun addTodo(todo: TodoEntity)

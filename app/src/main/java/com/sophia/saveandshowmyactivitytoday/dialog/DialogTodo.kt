@@ -22,24 +22,7 @@ class DialogTodo(dialogInterface: CustomDialogInterface) : DialogFragment() {
     private var customDialogInterface = dialogInterface
 
     private val now = System.currentTimeMillis()
-    val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(now)!!
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        binding = TodoDialogBinding.inflate(layoutInflater)
-//        setContentView(binding.root)
-//
-//        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//
-//        binding.date.text = sdf
-//
-//        binding.saveBtn.setOnClickListener {
-//            val content = binding.editTodo.text.toString()
-//
-//            customDialogInterface.onOkButtonClicked(content)
-//            dismiss()
-//        }
-//    }
+    private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN).format(now)!!
 
     override fun onCreateView(
         inflater: LayoutInflater,

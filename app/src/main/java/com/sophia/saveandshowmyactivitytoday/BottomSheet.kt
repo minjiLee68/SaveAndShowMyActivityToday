@@ -1,6 +1,5 @@
 package com.sophia.saveandshowmyactivitytoday
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,15 +13,15 @@ import com.sophia.saveandshowmyactivitytoday.databinding.LayoutBottomSheetBindin
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
-import java.io.Serializable
 
-class BottomSheet : BottomSheetDialogFragment(), CheckInterface, Serializable {
+class BottomSheet : BottomSheetDialogFragment() {
 
     private var _binding: LayoutBottomSheetBinding? = null
     val binding: LayoutBottomSheetBinding
         get() = _binding!!
 
     private lateinit var adapter: TodoAdapter
+    private var checkList = ArrayList<TodoEntity>()
 
     private val viewmodel by viewModels<TodoViewModel> {
         TodoViewModelFactory(requireActivity().application)
@@ -45,11 +44,10 @@ class BottomSheet : BottomSheetDialogFragment(), CheckInterface, Serializable {
         adapter.setHasStableIds(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
         binding.recyclerView.adapter = adapter
-        viewmodel.list(adapter)
 
-    }
-
-    override fun checkPosition(position: Int) {
+        viewmodel.readDoneData.observe(viewLifecycleOwner, {
+            (binding.recyclerView.adapter as TodoAdapter).submitList(it)
+        })
 
     }
 

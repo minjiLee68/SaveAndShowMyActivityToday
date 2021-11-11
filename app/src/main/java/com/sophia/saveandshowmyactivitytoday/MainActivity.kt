@@ -21,12 +21,14 @@ import com.sophia.saveandshowmyactivitytoday.databinding.ActivityMainBinding
 import com.sophia.saveandshowmyactivitytoday.databinding.LayoutBottomSheetBinding
 import com.sophia.saveandshowmyactivitytoday.dialog.DialogTodo
 import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
+import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckInterface {
+class MainActivity : AppCompatActivity(), CustomDialogInterface {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: TodoAdapter
@@ -89,8 +91,10 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckInterface 
 
     private fun bottomSheetButton() {
         val bottomSheetDialog = BottomSheetDialog(
-            this, R.style.BottomSheetDialogTheme)
-        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            this, R.style.BottomSheetDialogTheme
+        )
+        val inflater: LayoutInflater =
+            getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         val bottomSheetView = inflater.inflate(
             R.layout.layout_bottom_sheet,
@@ -102,7 +106,7 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckInterface 
 //            bottomSheetDialog.show()
             val bottomSheet = BottomSheet()
             bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
-            bottomSheet.show(supportFragmentManager,bottomSheet.tag)
+            bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
 
         bottomSheetView.findViewById<View>(R.id.image_top).setOnClickListener {
@@ -115,7 +119,5 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckInterface 
         viewmodel.addTodo(content, year, month, day, sdf)
     }
 
-    override fun checkPosition(position: Int) {
 
-    }
 }
