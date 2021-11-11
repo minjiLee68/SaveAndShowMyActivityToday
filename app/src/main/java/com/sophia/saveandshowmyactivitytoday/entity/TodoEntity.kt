@@ -3,6 +3,7 @@ package com.sophia.saveandshowmyactivitytoday.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "todo")
 data class TodoEntity(
@@ -19,4 +20,4 @@ data class TodoEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     var check: Boolean = false
-)
+): Serializable

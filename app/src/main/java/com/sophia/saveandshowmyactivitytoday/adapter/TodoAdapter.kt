@@ -1,22 +1,28 @@
 package com.sophia.saveandshowmyactivitytoday.adapter
 
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sophia.saveandshowmyactivitytoday.BottomSheet
 import com.sophia.saveandshowmyactivitytoday.CheckInterface
 import com.sophia.saveandshowmyactivitytoday.R
 import com.sophia.saveandshowmyactivitytoday.databinding.ListItemBinding
 import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
+import java.io.Serializable
 
 class TodoAdapter(
-    private val listener: CheckInterface,
-    private val viewModel: TodoViewModel
+    private val viewModel: TodoViewModel,
 ) : ListAdapter<TodoEntity, TodoAdapter.TodoViewHolder>(
 
     object : DiffUtil.ItemCallback<TodoEntity>() {
@@ -27,9 +33,10 @@ class TodoAdapter(
             oldItem.id == newItem.id && oldItem.content == newItem.content
     }
 
-) {
+), Serializable {
 
-    private  var checkPosition = mutableListOf<CheckBox>()
+    private var checkPosition = mutableListOf<CheckBox>()
+    private var deleteList: ArrayList<TodoEntity> = ArrayList()
 
     inner class TodoViewHolder(private val binding: ListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -68,9 +75,17 @@ class TodoAdapter(
 //            }
             binding.checkbox.setOnClickListener {
                 checkPosition[num].checked = binding.checkbox.isChecked
+                deleteList.add(todo)
+                viewModel.deleteList = deleteList
+                viewModel.deleteTodo(todo)
+
+//                val intent = Intent(binding.root.context, BottomSheet::class.java)
+//                intent.putExtra("deleteList",deleteList)
+//                ContextCompat.startActivity(binding.root.context, intent,null)
+
+
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder =
@@ -86,3 +101,4 @@ class TodoAdapter(
         holder.bind(currentList[position], viewModel, position)
     }
 }
+

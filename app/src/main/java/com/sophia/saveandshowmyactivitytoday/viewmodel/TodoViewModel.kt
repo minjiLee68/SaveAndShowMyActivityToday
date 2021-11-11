@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sophia.saveandshowmyactivitytoday.adapter.TodoAdapter
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.repository.TodoRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,12 +14,22 @@ import java.lang.Exception
 class TodoViewModel(private val repository: TodoRepository): ViewModel() {
 
     val readAllData: LiveData<List<TodoEntity>> = repository.readAllData
+    val readDoneData: LiveData<List<TodoEntity>> = repository.readDoneData
 
     private var _currentData = MutableLiveData<TodoEntity>()
     val currentData: LiveData<TodoEntity>
         get() = _currentData
 
-    val listLiveData = repository.getAll()
+    fun listLiveData(): LiveData<List<TodoEntity>> {
+        return repository.getAll()
+    }
+
+    var deleteList: ArrayList<TodoEntity> = ArrayList()
+
+    fun list(adapter: TodoAdapter) {
+        val list = deleteList
+        repository.list(list, adapter)
+    }
 
     fun addTodo(content: String, year: Int, month: Int, day: Int, date: String) {
         viewModelScope.launch(Dispatchers.IO) {

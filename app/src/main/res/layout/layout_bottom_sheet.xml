@@ -4,7 +4,7 @@
     android:id="@+id/bottom_sheet_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bottom_sheet_background"
+    android:background="@drawable/dialog_background"
     android:orientation="vertical">
 
     <ImageView

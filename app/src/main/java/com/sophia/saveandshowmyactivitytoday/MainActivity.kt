@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -78,7 +79,7 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckInterface 
     }
 
     private fun initRecyclerview() {
-        adapter = TodoAdapter(this,viewmodel)
+        adapter = TodoAdapter(viewmodel)
         binding.recyclerView.let {
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -98,7 +99,10 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckInterface 
         )
 
         binding.bottomSheet.setOnClickListener {
-            bottomSheetDialog.show()
+//            bottomSheetDialog.show()
+            val bottomSheet = BottomSheet()
+            bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
+            bottomSheet.show(supportFragmentManager,bottomSheet.tag)
         }
 
         bottomSheetView.findViewById<View>(R.id.image_top).setOnClickListener {
