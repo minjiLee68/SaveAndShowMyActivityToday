@@ -1,32 +1,24 @@
 package com.sophia.saveandshowmyactivitytoday
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sophia.saveandshowmyactivitytoday.adapter.TodoAdapter
 import com.sophia.saveandshowmyactivitytoday.databinding.ActivityMainBinding
-import com.sophia.saveandshowmyactivitytoday.databinding.LayoutBottomSheetBinding
 import com.sophia.saveandshowmyactivitytoday.dialog.DialogTodo
-import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), CustomDialogInterface {
 
@@ -118,6 +110,5 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface {
     override fun onOkButtonClicked(content: String) {
         viewmodel.addTodo(content, year, month, day, sdf)
     }
-
 
 }

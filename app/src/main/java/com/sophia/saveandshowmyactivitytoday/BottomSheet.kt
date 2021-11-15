@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -36,19 +37,29 @@ class BottomSheet : BottomSheetDialogFragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerView.visibility = View.VISIBLE
+//        viewmodel.readDoneData.observe(viewLifecycleOwner, {
+//            (binding.recyclerView.adapter as TodoAdapter).submitList(it)
+//            if (it != null) {
+//                binding.linearText.visibility = View.GONE
+//            }
+//        })
+        initRecyclerview()
+    }
+
+    private fun initRecyclerview() {
+        val checkData = arguments?.getSerializable("checkList") as TodoEntity
+        checkList.add(checkData)
+
         adapter = TodoAdapter(viewmodel)
         adapter.setHasStableIds(true)
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false)
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
-
-        viewmodel.readDoneData.observe(viewLifecycleOwner, {
-            (binding.recyclerView.adapter as TodoAdapter).submitList(it)
-        })
-
+        adapter.submitList(checkList)
     }
 
     override fun onDestroyView() {

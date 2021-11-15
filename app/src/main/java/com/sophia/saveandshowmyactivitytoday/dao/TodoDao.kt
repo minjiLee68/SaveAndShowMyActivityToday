@@ -2,7 +2,6 @@ package com.sophia.saveandshowmyactivitytoday.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.sophia.saveandshowmyactivitytoday.entity.CheckList
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 
 @Dao

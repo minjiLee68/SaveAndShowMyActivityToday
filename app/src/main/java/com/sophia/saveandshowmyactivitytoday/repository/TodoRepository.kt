@@ -3,9 +3,7 @@ package com.sophia.saveandshowmyactivitytoday.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.room.Room
-import com.sophia.saveandshowmyactivitytoday.adapter.TodoAdapter
 import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
-import com.sophia.saveandshowmyactivitytoday.entity.CheckList
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 
 class TodoRepository(application: Application) {
@@ -27,14 +25,6 @@ class TodoRepository(application: Application) {
 
     fun readDateData(year: Int, month: Int, day: Int): LiveData<List<TodoEntity>> =
         todoDao.readDateData(year, month, day)
-
-    fun checkTodo(todo: TodoEntity) {
-        todoDao.checkTodo(todo)
-    }
-
-    fun checkList(content: String, year: Int, month: Int, day: Int, check: Boolean) {
-        CheckList(content, year, month, day, check)
-    }
 
     fun addTodo(todo: TodoEntity) {
         todoDao.addTodo(todo)

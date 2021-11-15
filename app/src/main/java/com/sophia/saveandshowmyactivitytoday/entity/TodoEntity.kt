@@ -8,15 +8,15 @@ import java.io.Serializable
 @Entity(tableName = "todo")
 data class TodoEntity(
     @ColumnInfo(name = "content")
-    var content: String = "",
+    var content: String?,
     @ColumnInfo(name = "year")
-    var year: Int = 0,
+    var year: Int?,
     @ColumnInfo(name = "month")
-    var month: Int = 0,
+    var month: Int?,
     @ColumnInfo(name = "day")
-    var day: Int = 0,
+    var day: Int?,
     @ColumnInfo(name = "date")
-    var date: String = "",
+    var date: String?,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     @ColumnInfo(name = "check")
