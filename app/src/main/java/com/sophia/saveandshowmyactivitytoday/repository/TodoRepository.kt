@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
+import com.sophia.saveandshowmyactivitytoday.entity.Check
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 
 class TodoRepository(application: Application) {
@@ -18,6 +19,7 @@ class TodoRepository(application: Application) {
     ).build()
 
     private val todoDao = db.todoDao()
+    private val checkDao = db.checkDao()
 
     val readAllData: LiveData<List<TodoEntity>> = todoDao.readAllData()
     val readDoneData: LiveData<List<TodoEntity>> = todoDao.readDoneData()
@@ -36,6 +38,12 @@ class TodoRepository(application: Application) {
 
     fun deleteTodo(todo: TodoEntity) {
         todoDao.deleteTodo(todo)
+    }
+
+    val getCheck: LiveData<List<Check>> = checkDao.checkAllData()
+
+    fun addCheck(check: Check) {
+        checkDao.addCheck(check)
     }
 
 }

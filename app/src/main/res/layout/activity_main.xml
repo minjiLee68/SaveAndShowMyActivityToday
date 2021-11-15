@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ADfff0dd"
@@ -90,7 +91,7 @@
         app:maxImageSize="30dp"
         app:tint="#fff0dd" />
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -108,5 +109,5 @@
             android:src="@drawable/ic_check_all"
             app:tint="#579892" />
 
-    </LinearLayout>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

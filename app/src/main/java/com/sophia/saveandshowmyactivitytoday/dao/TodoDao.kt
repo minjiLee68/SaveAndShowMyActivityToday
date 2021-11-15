@@ -22,9 +22,6 @@ interface TodoDao {
     fun getAll(): LiveData<List<TodoEntity>>
 
     @Insert
-    fun checkTodo(todo: TodoEntity)
-
-    @Insert
     fun addTodo(todo: TodoEntity)
 
     @Update
