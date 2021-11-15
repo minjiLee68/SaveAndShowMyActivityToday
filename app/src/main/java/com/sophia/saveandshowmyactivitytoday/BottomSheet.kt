@@ -38,10 +38,6 @@ class BottomSheet : BottomSheetDialogFragment() {
     ): View {
         _binding = LayoutBottomSheetBinding.inflate(inflater, container, false)
         db = getTodoDatabase(requireContext())
-//        val checkData = arguments?.getSerializable("checkList") as Check?
-//        if (checkData != null) {
-//            checkList.add(checkData)
-//        }
         return binding.root
     }
 
@@ -49,7 +45,6 @@ class BottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.recyclerView.visibility = View.VISIBLE
         initRecyclerview()
         setObserver()
     }
@@ -60,14 +55,13 @@ class BottomSheet : BottomSheetDialogFragment() {
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
             it.setHasFixedSize(true)
-            adapter.submitList(checkList)
         }
     }
 
     private fun setObserver() {
         viewmodel.checkLiveData.observe(viewLifecycleOwner, {
             (binding.recyclerView.adapter as CheckAdapter).submitList(it)
-            Log.d("tag","$id")
+            Log.d("tag","$it")
         })
     }
 

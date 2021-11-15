@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: TodoAdapter
+    private lateinit var db: TodoDatabase
 
     private var year: Int = 0
     private var month: Int = 0
@@ -49,6 +50,8 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        db = getTodoDatabase(this)
 
         addMemo()
         today()
