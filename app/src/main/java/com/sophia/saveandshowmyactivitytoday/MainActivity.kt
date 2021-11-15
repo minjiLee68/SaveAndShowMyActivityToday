@@ -12,6 +12,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.sophia.saveandshowmyactivitytoday.adapter.CheckAdapter
 import com.sophia.saveandshowmyactivitytoday.adapter.TodoAdapter
 import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
 import com.sophia.saveandshowmyactivitytoday.database.getTodoDatabase
@@ -90,7 +91,11 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
 
     private fun bottomSheetButton() {
         binding.bottomSheet.setOnClickListener {
-            val bottomSheet = BottomSheet()
+            val adapter = CheckAdapter()
+            viewmodel.checkLiveData.observe(this, {
+                adapter.submitList(it)
+            })
+            val bottomSheet = BottomSheet(adapter)
             bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }

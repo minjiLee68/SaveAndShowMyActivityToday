@@ -1,5 +1,7 @@
 package com.sophia.saveandshowmyactivitytoday
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -17,19 +19,13 @@ import com.sophia.saveandshowmyactivitytoday.entity.Check
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
 
-class BottomSheet : BottomSheetDialogFragment() {
+class BottomSheet(private var adapter: CheckAdapter) : BottomSheetDialogFragment() {
 
     private var _binding: LayoutBottomSheetBinding? = null
     val binding: LayoutBottomSheetBinding
         get() = _binding!!
 
-    private lateinit var adapter: CheckAdapter
-    private var checkList = ArrayList<Check>()
     private lateinit var db: TodoDatabase
-
-    private val viewmodel by viewModels<TodoViewModel> {
-        TodoViewModelFactory(requireActivity().application)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,28 +42,19 @@ class BottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerview()
-        setObserver()
+
     }
 
     private fun initRecyclerview() {
-        binding.recyclerView.let {
-            adapter = CheckAdapter()
-            it.adapter = adapter
-            it.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,false)
-            it.setHasFixedSize(true)
-        }
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
     }
 
-    private fun setObserver() {
-        viewmodel.checkLiveData.observe(viewLifecycleOwner, {
-            (binding.recyclerView.adapter as CheckAdapter).submitList(it)
-            Log.d("tag","$it")
-        })
-    }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        dialog.dismiss()
     }
 
 }
