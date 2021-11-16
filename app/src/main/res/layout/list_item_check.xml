@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ADf2d8b3"
+        android:background="#C6ABB7C1"
         android:padding="5dp">
 
         <androidx.appcompat.widget.AppCompatCheckBox
@@ -30,7 +30,7 @@
             android:layout_marginStart="35dp"
             android:layout_marginBottom="15dp"
             android:text="Android Studio"
-            android:textColor="@color/black"
+            android:textColor="@color/gray"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

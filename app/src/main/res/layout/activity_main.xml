@@ -5,7 +5,7 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ADfff0dd"
+    android:background="@color/colorPrimary_second"
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -25,20 +25,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/poster" />
+            android:src="@drawable/image" />
     </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/calendar_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="15dp"
-        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
         android:src="@drawable/ic_calender"
         app:layout_constraintStart_toEndOf="@id/today"
         app:layout_constraintTop_toBottomOf="@id/cardview"
-        app:tint="#579892" />
+        app:tint="@color/colorPrimary" />
 
     <TextView
         android:id="@+id/today"
@@ -46,11 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:fontFamily="sans-serif-condensed"
         android:text="2021-11-1"
-        android:textColor="#579892"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cardview" />
 
@@ -71,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Task Today"
-        android:textColor="#d76735"
+        android:textColor="@color/gray"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,18 +81,18 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="#8fb0a9"
+        android:backgroundTint="#556877"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="30dp"
-        app:tint="#fff0dd" />
+        app:tint="@color/colorPrimary_second" />
 
     <FrameLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="#fff0dd"
+        android:background="#C4F1F2F6"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +104,7 @@
             android:layout_gravity="center|top"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_check_all"
-            app:tint="#579892" />
+            app:tint="@color/colorPrimary" />
 
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,7 +59,7 @@ class TodoAdapter(
 
             binding.checkbox.setOnClickListener {
                 listener.checkList(todo.content, todo.date)
-//                viewModel.deleteTodo(todo)
+                viewModel.deleteTodo(todo)
             }
         }
     }

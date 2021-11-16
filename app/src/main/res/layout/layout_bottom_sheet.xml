@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:src="@drawable/ic_check_all"
-        app:tint="#579892" />
+        app:tint="@color/colorPrimary" />
 
     <View
         android:layout_width="match_parent"
