@@ -42,6 +42,9 @@ class TodoRepository(application: Application) {
 
     val getCheck: LiveData<List<Check>> = checkDao.checkAllData()
 
+    fun readCheckedDateData(year: Int, month: Int, day: Int): LiveData<List<Check>> =
+        checkDao.readCheckedDateData(year, month, day)
+
     fun addCheck(check: Check) {
         checkDao.addCheck(check)
     }

@@ -58,7 +58,7 @@ class TodoAdapter(
             binding.checkbox.isChecked = checkPosition[num].checked
 
             binding.checkbox.setOnClickListener {
-                listener.checkList(todo.content, todo.date)
+                listener.checkList(todo.content)
                 viewModel.deleteTodo(todo)
             }
         }

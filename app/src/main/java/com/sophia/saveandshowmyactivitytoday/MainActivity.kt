@@ -54,6 +54,10 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
 
         db = getTodoDatabase(this)
 
+        year = yearFormat
+        month = monthFormat
+        day = dayFormat
+
         addMemo()
         today()
         initRecyclerview()
@@ -69,10 +73,6 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
     }
 
     private fun today() {
-        year = yearFormat
-        month = monthFormat
-        day = dayFormat
-
         viewmodel.readDateData(year, month, day).observe(this, {
             (binding.recyclerView.adapter as TodoAdapter).submitList(it)
             binding.recyclerView.visibility = View.VISIBLE
@@ -90,9 +90,10 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
     }
 
     private fun bottomSheetButton() {
+
         binding.bottomSheet.setOnClickListener {
             val adapter = CheckAdapter()
-            viewmodel.checkLiveData.observe(this, {
+            viewmodel.readCheckedDateData(year, month, day).observe(this, {
                 adapter.submitList(it)
             })
             val bottomSheet = BottomSheet(adapter)
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         viewmodel.addTodo(content, year, month, day, sdf)
     }
 
-    override fun checkList(content: String, date: String) {
-        viewmodel.addCheck(content, date)
+    override fun checkList(content: String) {
+        viewmodel.addCheck(content, sdf, year, month, day)
     }
 }

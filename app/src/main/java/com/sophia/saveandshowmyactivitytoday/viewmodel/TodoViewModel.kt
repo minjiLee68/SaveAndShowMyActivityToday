@@ -40,10 +40,13 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
 
     val checkLiveData = repository.getCheck
 
-    fun addCheck(content: String, date: String) {
+    fun addCheck(content: String, date: String, year: Int, month: Int, day: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val check = Check(content, date)
+            val check = Check(content, date, year, month, day)
             repository.addCheck(check)
         }
     }
+
+    fun readCheckedDateData(year: Int, month: Int, day: Int): LiveData<List<Check>> =
+        repository.readCheckedDateData(year, month, day)
 }
