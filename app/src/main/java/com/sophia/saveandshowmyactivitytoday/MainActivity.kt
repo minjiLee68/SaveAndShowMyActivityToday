@@ -58,21 +58,24 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         month = monthFormat
         day = dayFormat
 
-        addMemo()
-        today()
+        init()
+        todayObserver()
         initRecyclerview()
         bottomSheetButton()
     }
 
-    private fun addMemo() {
+    private fun init() {
         binding.addMemo.setOnClickListener {
             val myCustomDialog = DialogTodo(this)
             myCustomDialog.show(supportFragmentManager, "DialogTodo")
         }
         binding.today.text = sdf
+        binding.viewAll.setOnClickListener {
+            flipTheScreen()
+        }
     }
 
-    private fun today() {
+    private fun todayObserver() {
         viewmodel.readDateData(year, month, day).observe(this, {
             (binding.recyclerView.adapter as TodoAdapter).submitList(it)
             binding.recyclerView.visibility = View.VISIBLE
@@ -100,6 +103,11 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
             bottomSheet.setStyle(DialogFragment.STYLE_NORMAL, R.style.BottomSheetDialogTheme)
             bottomSheet.show(supportFragmentManager, bottomSheet.tag)
         }
+    }
+
+    private fun flipTheScreen() {
+        val intent = Intent(this, ViewAllActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onOkButtonClicked(content: String) {
