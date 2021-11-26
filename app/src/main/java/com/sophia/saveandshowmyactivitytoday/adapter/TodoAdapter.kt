@@ -36,7 +36,6 @@ class TodoAdapter(
 ) {
 
     private var checkPosition = mutableListOf<CheckBox>()
-    private var checkList: MutableList<TodoEntity> = mutableListOf()
 
     inner class TodoViewHolder(
         private val binding: ListItemBinding,

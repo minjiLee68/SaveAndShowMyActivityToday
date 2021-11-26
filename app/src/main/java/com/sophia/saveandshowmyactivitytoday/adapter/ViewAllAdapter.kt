@@ -1,5 +1,7 @@
 package com.sophia.saveandshowmyactivitytoday.adapter
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -26,6 +28,9 @@ class ViewAllAdapter : ListAdapter<Check, ViewAllAdapter.ViewAllViewHolder>(
         fun bind(check: Check) {
             binding.tvText.text = check.content
             binding.tvDate.text = check.date
+
+            binding.tvText.paintFlags = binding.tvText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            binding.checkbox.isChecked = true
         }
     }
 
