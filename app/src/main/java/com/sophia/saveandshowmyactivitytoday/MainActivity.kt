@@ -4,21 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sophia.saveandshowmyactivitytoday.adapter.CheckAdapter
-import com.sophia.saveandshowmyactivitytoday.adapter.ImageSliderAdapter
 import com.sophia.saveandshowmyactivitytoday.adapter.TodoAdapter
 import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
 import com.sophia.saveandshowmyactivitytoday.database.getTodoDatabase
 import com.sophia.saveandshowmyactivitytoday.databinding.ActivityMainBinding
 import com.sophia.saveandshowmyactivitytoday.dialog.DialogTodo
-import com.sophia.saveandshowmyactivitytoday.entity.SliderImages
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
 import java.text.SimpleDateFormat
@@ -29,7 +23,6 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: TodoAdapter
     private lateinit var db: TodoDatabase
-    private lateinit var  indicatorsContainer: LinearLayout
 
     private var year: Int = 0
     private var month: Int = 0
@@ -58,11 +51,11 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         month = monthFormat
         day = dayFormat
 
+        getIntentData()
         init()
         todayObserver()
         initRecyclerview()
         bottomSheetButton()
-        imageSliderViewPager()
     }
 
     private fun init() {
@@ -74,6 +67,14 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         binding.viewAll.setOnClickListener {
             flipTheScreen()
         }
+        binding.ivEditGoal.setOnClickListener {
+            startActivity(Intent(this, SettingGoalsActivity::class.java))
+        }
+    }
+
+    private fun getIntentData() {
+        val getData = intent.getStringExtra("goal")
+        binding.goalTv.text = getData
     }
 
     private fun todayObserver() {
@@ -94,7 +95,6 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
     }
 
     private fun bottomSheetButton() {
-
         binding.bottomSheet.setOnClickListener {
             val adapter = CheckAdapter()
             viewmodel.readCheckedDateData(year, month, day).observe(this, {
@@ -109,44 +109,6 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
     private fun flipTheScreen() {
         val intent = Intent(this, ViewAllActivity::class.java)
         startActivity(intent)
-
-    }
-
-    private val imageSliderAdapter = ImageSliderAdapter(
-        listOf(
-            SliderImages(
-                R.drawable.image.toString()
-            ),
-            SliderImages(
-                R.drawable.image2.toString()
-            )
-        )
-    )
-
-    private fun imageSliderViewPager() {
-        indicatorsContainer = binding.indicatorsContainer
-        binding.viewpager2.adapter = imageSliderAdapter
-
-        val indicators = arrayOfNulls<ImageView>(imageSliderAdapter.itemCount)
-        val layoutParams: LinearLayout.LayoutParams =
-            LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-        layoutParams.setMargins(8, 0, 8, 0)
-        for (i in indicators.indices) {
-            indicators[i] = ImageView(applicationContext)
-            indicators[i]?.let {
-                it.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        applicationContext,
-                        R.drawable.poster
-                    )
-                )
-                it.layoutParams = layoutParams
-                indicatorsContainer.addView(it)
-            }
-        }
     }
 
     override fun onOkButtonClicked(content: String) {

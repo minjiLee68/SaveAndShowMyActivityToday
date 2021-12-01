@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveAndShowMyActivityToday">
         <activity
+            android:name=".SettingGoalsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewAllActivity"
             android:exported="true" />
         <activity
