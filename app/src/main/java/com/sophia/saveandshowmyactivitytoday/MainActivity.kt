@@ -1,5 +1,6 @@
 package com.sophia.saveandshowmyactivitytoday
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         bottomSheetButton()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun init() {
         binding.addMemo.setOnClickListener {
             val myCustomDialog = DialogTodo(this)
@@ -74,6 +76,9 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         preferences = PreferenceManager(applicationContext)
         val mygoal = preferences.getString("mygoal")
         binding.goalTv.text = mygoal
+
+        val dDayText = preferences.getString("dDay")
+        binding.dDay.text = "D$dDayText"
     }
     private fun todayObserver() {
         viewmodel.readDateData(year, month, day).observe(this, {
