@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sophia.saveandshowmyactivitytoday.entity.Check
+import com.sophia.saveandshowmyactivitytoday.entity.Goal
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.repository.TodoRepository
 import kotlinx.coroutines.Dispatchers
@@ -49,4 +50,5 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
 
     fun readCheckedDateData(year: Int, month: Int, day: Int): LiveData<List<Check>> =
         repository.readCheckedDateData(year, month, day)
+
 }

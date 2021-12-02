@@ -13,6 +13,7 @@ import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
 import com.sophia.saveandshowmyactivitytoday.database.getTodoDatabase
 import com.sophia.saveandshowmyactivitytoday.databinding.ActivityMainBinding
 import com.sophia.saveandshowmyactivitytoday.dialog.DialogTodo
+import com.sophia.saveandshowmyactivitytoday.register.PreferenceManager
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
 import java.text.SimpleDateFormat
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: TodoAdapter
     private lateinit var db: TodoDatabase
+    private lateinit var preferences: PreferenceManager
 
     private var year: Int = 0
     private var month: Int = 0
@@ -51,7 +53,6 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         month = monthFormat
         day = dayFormat
 
-        getIntentData()
         init()
         todayObserver()
         initRecyclerview()
@@ -70,13 +71,10 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         binding.ivEditGoal.setOnClickListener {
             startActivity(Intent(this, SettingGoalsActivity::class.java))
         }
+        preferences = PreferenceManager(applicationContext)
+        val mygoal = preferences.getString("mygoal")
+        binding.goalTv.text = mygoal
     }
-
-    private fun getIntentData() {
-        val getData = intent.getStringExtra("goal")
-        binding.goalTv.text = getData
-    }
-
     private fun todayObserver() {
         viewmodel.readDateData(year, month, day).observe(this, {
             (binding.recyclerView.adapter as TodoAdapter).submitList(it)

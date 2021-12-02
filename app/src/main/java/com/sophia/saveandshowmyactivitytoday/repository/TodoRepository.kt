@@ -1,10 +1,13 @@
 package com.sophia.saveandshowmyactivitytoday.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
 import com.sophia.saveandshowmyactivitytoday.entity.Check
+import com.sophia.saveandshowmyactivitytoday.entity.Goal
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 
 class TodoRepository(application: Application) {
