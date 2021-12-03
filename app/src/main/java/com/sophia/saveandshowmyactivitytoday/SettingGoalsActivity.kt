@@ -60,7 +60,6 @@ class SettingGoalsActivity : AppCompatActivity() {
             binding.view1.visibility = View.VISIBLE
             try {
                 val datePicker = DatePicker.OnDateChangedListener { _, year, month, day ->
-
                     yearFormat = year
                     monthFormat = month +1
                     dayFormat = day

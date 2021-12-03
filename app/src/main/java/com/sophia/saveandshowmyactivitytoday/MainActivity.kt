@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
@@ -14,11 +15,13 @@ import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
 import com.sophia.saveandshowmyactivitytoday.database.getTodoDatabase
 import com.sophia.saveandshowmyactivitytoday.databinding.ActivityMainBinding
 import com.sophia.saveandshowmyactivitytoday.dialog.DialogTodo
+import com.sophia.saveandshowmyactivitytoday.entity.Check
 import com.sophia.saveandshowmyactivitytoday.register.PreferenceManager
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
 
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
     private lateinit var adapter: TodoAdapter
     private lateinit var db: TodoDatabase
     private lateinit var preferences: PreferenceManager
+    private lateinit var progressList: ArrayList<Check>
 
     private var year: Int = 0
     private var month: Int = 0
@@ -58,9 +62,11 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         todayObserver()
         initRecyclerview()
         bottomSheetButton()
+        timeRemaining()
+        progress()
     }
 
-    @SuppressLint("SetTextI18n")
+
     private fun init() {
         binding.addMemo.setOnClickListener {
             val myCustomDialog = DialogTodo(this)
@@ -73,6 +79,11 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         binding.ivEditGoal.setOnClickListener {
             startActivity(Intent(this, SettingGoalsActivity::class.java))
         }
+        progressList = ArrayList()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun timeRemaining() {
         preferences = PreferenceManager(applicationContext)
         val mygoal = preferences.getString("mygoal")
         binding.goalTv.text = mygoal
@@ -80,6 +91,22 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         val dDayText = preferences.getString("dDay")
         binding.dDay.text = "D$dDayText"
     }
+
+    private fun progress() {
+        viewmodel.checkLiveData.observe(this, {
+            val um = it.size / 10
+            val um2 = it.size / 30
+            val um3 = it.size / 50
+            val um4 = it.size / 80
+            val um5 = it.size / 100
+            if (it.size / 10 == um) {
+                binding.progressBar.incrementProgressBy(10)
+            }
+            Log.d("size", it.size.toString())
+            Log.d("tag", um.toString())
+        })
+    }
+
     private fun todayObserver() {
         viewmodel.readDateData(year, month, day).observe(this, {
             (binding.recyclerView.adapter as TodoAdapter).submitList(it)
