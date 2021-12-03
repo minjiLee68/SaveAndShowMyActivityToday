@@ -116,7 +116,12 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
 
             viewmodel.listLiveData.observe(this, { todo ->
                 val a = todo.size / check.size
-                binding.progressBar.incrementProgressBy(a)
+                if (a == 0) {
+                    binding.progressBar.incrementProgressBy(100)
+                }
+                if (a != 0 && a == 100 / a) {
+                    binding.progressBar.incrementProgressBy(a)
+                }
                 Log.d("size", check.size.toString())
                 Log.d("tag", a.toString())
             })
