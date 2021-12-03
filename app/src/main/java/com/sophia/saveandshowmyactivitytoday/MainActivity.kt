@@ -93,18 +93,35 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
     }
 
     private fun progress() {
-        viewmodel.checkLiveData.observe(this, {
-            val um = it.size / 10
-            val um2 = it.size / 30
-            val um3 = it.size / 50
-            val um4 = it.size / 80
-            val um5 = it.size / 100
-            if (it.size / 10 == um) {
-                binding.progressBar.incrementProgressBy(10)
-            }
-            Log.d("size", it.size.toString())
-            Log.d("tag", um.toString())
+        binding.progressBar.progress = 0
+        binding.progressBar.max = 100
+        val checked: CheckListData
+        viewmodel.checkLiveData.observe(this, { check ->
+            val um = check.size * 2
+            val um2 = check.size * 4
+            val um3 = check.size * 8
+            val um4 = check.size * 10
+//            if (check.size == um) {
+//                binding.progressBar.incrementProgressBy(10)
+//            }
+//            if (check.size == um2) {
+//                binding.progressBar.incrementProgressBy(30)
+//            }
+//            if (check.size == um3) {
+//                binding.progressBar.incrementProgressBy(50)
+//            }
+//            if (check.size == um4) {
+//                binding.progressBar.incrementProgressBy(80)
+//            }
+
+            viewmodel.listLiveData.observe(this, { todo ->
+                val a = todo.size / check.size
+                binding.progressBar.incrementProgressBy(a)
+                Log.d("size", check.size.toString())
+                Log.d("tag", a.toString())
+            })
         })
+
     }
 
     private fun todayObserver() {
@@ -147,5 +164,6 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
 
     override fun checkList(content: String) {
         viewmodel.addCheck(content, sdf, year, month, day)
+
     }
 }

@@ -1,21 +1,13 @@
 package com.sophia.saveandshowmyactivitytoday.adapter
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sophia.saveandshowmyactivitytoday.BottomSheet
 import com.sophia.saveandshowmyactivitytoday.CheckListData
-import com.sophia.saveandshowmyactivitytoday.MainActivity
 import com.sophia.saveandshowmyactivitytoday.R
 import com.sophia.saveandshowmyactivitytoday.databinding.ListItemBinding
-import com.sophia.saveandshowmyactivitytoday.entity.Check
 import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
@@ -43,6 +35,7 @@ class TodoAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var todoViewModel: TodoViewModel
+        private var list: ArrayList<TodoEntity> = arrayListOf()
 
         fun bind(todo: TodoEntity, viewModel: TodoViewModel, num: Int) {
             this.todoViewModel = viewModel
@@ -76,6 +69,5 @@ class TodoAdapter(
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         holder.bind(getItem(position), viewModel, position)
     }
-
 }
 
