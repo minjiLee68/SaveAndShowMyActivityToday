@@ -1,15 +1,15 @@
 package com.sophia.saveandshowmyactivitytoday.adapter
 
-import android.util.Log
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sophia.saveandshowmyactivitytoday.R
 import com.sophia.saveandshowmyactivitytoday.databinding.ItemAddDetailedBinding
 import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
 import com.sophia.saveandshowmyactivitytoday.register.PreferenceManager
-import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 
 class DetailPlanAdapter(
     private val preferenceManager: PreferenceManager,
@@ -30,9 +30,12 @@ class DetailPlanAdapter(
         fun bind(detailPlan: DetailPlan, num: Int) {
             binding.tvDetailed.text = detailPlan.content
 
-            binding.checkbox.setOnClickListener {
-                if (binding.checkbox.isChecked) {
-                    preferenceManager.putInteger("size", num + 1)
+            binding.checkbox.setOnCheckedChangeListener { _, b ->
+                binding.checkbox.isSelected = b
+                preferenceManager.putInteger("size", num + 1)
+                if (b) {
+                    binding.checkbox.setButtonDrawable(R.drawable.detail_plan_check)
+                    binding.tvDetailed.paintFlags = binding.tvDetailed.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                 }
             }
         }
