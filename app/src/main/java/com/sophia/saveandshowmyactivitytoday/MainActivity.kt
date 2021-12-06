@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         initRecyclerview()
         bottomSheetButton()
         timeRemaining()
-        progress()
     }
 
 
@@ -92,42 +91,6 @@ class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
         binding.dDay.text = "D$dDayText"
     }
 
-    private fun progress() {
-        binding.progressBar.progress = 0
-        binding.progressBar.max = 100
-        val checked: CheckListData
-        viewmodel.checkLiveData.observe(this, { check ->
-            val um = check.size * 2
-            val um2 = check.size * 4
-            val um3 = check.size * 8
-            val um4 = check.size * 10
-//            if (check.size == um) {
-//                binding.progressBar.incrementProgressBy(10)
-//            }
-//            if (check.size == um2) {
-//                binding.progressBar.incrementProgressBy(30)
-//            }
-//            if (check.size == um3) {
-//                binding.progressBar.incrementProgressBy(50)
-//            }
-//            if (check.size == um4) {
-//                binding.progressBar.incrementProgressBy(80)
-//            }
-
-            viewmodel.listLiveData.observe(this, { todo ->
-                val a = todo.size / check.size
-                if (a == 0) {
-                    binding.progressBar.incrementProgressBy(100)
-                }
-                if (a != 0 && a == 100 / a) {
-                    binding.progressBar.incrementProgressBy(a)
-                }
-                Log.d("size", check.size.toString())
-                Log.d("tag", a.toString())
-            })
-        })
-
-    }
 
     private fun todayObserver() {
         viewmodel.readDateData(year, month, day).observe(this, {
