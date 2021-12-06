@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
         initRecyclerview()
         bottomSheetButton()
         timeRemaining()
+        progressBar()
     }
 
 
@@ -94,6 +95,19 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
         binding.detailPlan.text = detailPlanText
     }
 
+    private fun progressBar() {
+        binding.progressBar.progress = 0
+        binding.progressBar.max = 100
+
+        val size = preferences.getInteger("size")
+        viewmodel.detailPlanLiveData().observe(this, {
+            binding.progressBar.progress = ((size.toDouble() / it.size.toDouble()) * 100).toInt()
+            if (size == it.size) {
+                binding.progressBar.progress = 100
+            }
+        })
+    }
+
     @SuppressLint("DiscouragedPrivateApi")
     private fun popupMenu(v: View) {
         val detailMenus = PopupMenu(applicationContext, v)
@@ -116,7 +130,7 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
     }
 
     private fun detailPlanText(detailPlan: String) {
-        preferences.putString("planText",detailPlan)
+        preferences.putString("planText", detailPlan)
     }
 
     @SuppressLint("SetTextI18n")

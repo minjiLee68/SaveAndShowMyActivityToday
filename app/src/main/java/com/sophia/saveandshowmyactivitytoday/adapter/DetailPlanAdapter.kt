@@ -8,8 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sophia.saveandshowmyactivitytoday.databinding.ItemAddDetailedBinding
 import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
+import com.sophia.saveandshowmyactivitytoday.register.PreferenceManager
+import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 
-class DetailPlanAdapter: ListAdapter<DetailPlan, DetailPlanAdapter.DetailPlanViewHolder>(
+class DetailPlanAdapter(
+    private val preferenceManager: PreferenceManager,
+) :
+    ListAdapter<DetailPlan, DetailPlanAdapter.DetailPlanViewHolder>(
 
         object : DiffUtil.ItemCallback<DetailPlan>() {
             override fun areItemsTheSame(oldItem: DetailPlan, newItem: DetailPlan): Boolean =
@@ -22,8 +27,14 @@ class DetailPlanAdapter: ListAdapter<DetailPlan, DetailPlanAdapter.DetailPlanVie
     ) {
     inner class DetailPlanViewHolder(private val binding: ItemAddDetailedBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(detailPlan: DetailPlan) {
+        fun bind(detailPlan: DetailPlan, num: Int) {
             binding.tvDetailed.text = detailPlan.content
+
+            binding.checkbox.setOnClickListener {
+                if (binding.checkbox.isChecked) {
+                    preferenceManager.putInteger("size", num + 1)
+                }
+            }
         }
     }
 
@@ -37,6 +48,6 @@ class DetailPlanAdapter: ListAdapter<DetailPlan, DetailPlanAdapter.DetailPlanVie
         )
 
     override fun onBindViewHolder(holder: DetailPlanViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(currentList[position], position)
     }
 }

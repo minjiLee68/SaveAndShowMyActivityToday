@@ -88,7 +88,7 @@ class SettingGoalsActivity : AppCompatActivity(), PlanDialogInterface {
     }
 
     private fun detailPlanRecyclerView() {
-        detailPlanAdapter = DetailPlanAdapter()
+        detailPlanAdapter = DetailPlanAdapter(preferences)
         binding.recyclerView.let {
             it.adapter = detailPlanAdapter
             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
