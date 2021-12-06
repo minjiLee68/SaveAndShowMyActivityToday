@@ -37,6 +37,9 @@ class SettingGoalsActivity : AppCompatActivity(), PlanDialogInterface {
     private lateinit var detailPlanList: MutableList<DetailPlan>
 
     private val today = Calendar.getInstance()
+    private val now = System.currentTimeMillis()
+    private val dateFormat = SimpleDateFormat("yyyy년MM월dd일" +
+            "", Locale.KOREAN).format(now)
 
     private var yearFormat = today.get(Calendar.YEAR)
     private var monthFormat = today.get(Calendar.MONTH)
@@ -60,6 +63,7 @@ class SettingGoalsActivity : AppCompatActivity(), PlanDialogInterface {
     private fun init() {
         preferences = PreferenceManager(applicationContext)
         detailPlanList = mutableListOf()
+        binding.date.text = dateFormat
     }
 
     private fun setOnClick() {

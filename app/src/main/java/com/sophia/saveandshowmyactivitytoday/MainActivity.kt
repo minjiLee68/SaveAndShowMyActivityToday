@@ -1,12 +1,16 @@
 package com.sophia.saveandshowmyactivitytoday
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.view.get
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sophia.saveandshowmyactivitytoday.adapter.CheckAdapter
@@ -21,6 +25,7 @@ import com.sophia.saveandshowmyactivitytoday.interfaced.CheckListData
 import com.sophia.saveandshowmyactivitytoday.register.PreferenceManager
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -69,6 +74,7 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
 
 
     private fun init() {
+        preferences = PreferenceManager(applicationContext)
         binding.addMemo.setOnClickListener {
             val myCustomDialog = DialogTodo(this)
             myCustomDialog.show(supportFragmentManager, "DialogTodo")
@@ -81,11 +87,40 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
             startActivity(Intent(this, SettingGoalsActivity::class.java))
         }
         progressList = ArrayList()
+        binding.detailBtn.setOnClickListener {
+            popupMenu(it)
+        }
+        val detailPlanText = preferences.getString("planText")
+        binding.detailPlan.text = detailPlanText
+    }
+
+    @SuppressLint("DiscouragedPrivateApi")
+    private fun popupMenu(v: View) {
+        val detailMenus = PopupMenu(applicationContext, v)
+        viewmodel.detailPlanLiveData().observe(this, { it ->
+            try {
+                for (i in it.indices) {
+                    detailMenus.menu.add(0, i, 0, it[i].content)
+                }
+                detailMenus.setOnMenuItemClickListener { item ->
+                    val itemId = item.itemId
+                    val planText = it[itemId].content
+                    detailPlanText(planText)
+                    return@setOnMenuItemClickListener true
+                }
+                detailMenus.show()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        })
+    }
+
+    private fun detailPlanText(detailPlan: String) {
+        preferences.putString("planText",detailPlan)
     }
 
     @SuppressLint("SetTextI18n")
     private fun timeRemaining() {
-        preferences = PreferenceManager(applicationContext)
         val mygoal = preferences.getString("mygoal")
         binding.goalTv.text = mygoal
 

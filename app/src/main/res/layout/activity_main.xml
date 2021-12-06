@@ -30,13 +30,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="18dp"
                 android:text="나의 목표"
                 android:textColor="@color/colorPrimary"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detail_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="20dp"
+                android:text="세부적인 목표"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goal_tv" />
+
+            <ImageView
+                android:id="@+id/detail_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_arrow_drop"
+                app:layout_constraintBottom_toBottomOf="@id/detail_plan"
+                app:layout_constraintStart_toEndOf="@id/detail_plan"
+                app:layout_constraintTop_toTopOf="@id/detail_plan" />
 
             <ImageView
                 android:id="@+id/iv_edit_goal"
@@ -139,8 +161,8 @@
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:elevation="5dp"
         android:background="@color/colorPrimary_second"
+        android:elevation="5dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
