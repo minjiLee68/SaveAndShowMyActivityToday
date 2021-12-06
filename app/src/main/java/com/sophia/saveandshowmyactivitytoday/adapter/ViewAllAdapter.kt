@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sophia.saveandshowmyactivitytoday.databinding.ListItemBinding
+import com.sophia.saveandshowmyactivitytoday.databinding.ListItemCheckBinding
 import com.sophia.saveandshowmyactivitytoday.entity.Check
 
 class ViewAllAdapter : ListAdapter<Check, ViewAllAdapter.ViewAllViewHolder>(
@@ -23,7 +24,7 @@ class ViewAllAdapter : ListAdapter<Check, ViewAllAdapter.ViewAllViewHolder>(
     }
 
 ) {
-    inner class ViewAllViewHolder(private val binding: ListItemBinding) :
+    inner class ViewAllViewHolder(private val binding: ListItemCheckBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(check: Check) {
@@ -31,13 +32,12 @@ class ViewAllAdapter : ListAdapter<Check, ViewAllAdapter.ViewAllViewHolder>(
             binding.tvDate.text = check.date
 
             binding.tvText.paintFlags = binding.tvText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            binding.checkbox.isChecked = true
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewAllViewHolder =
         ViewAllViewHolder(
-            ListItemBinding.inflate(
+            ListItemCheckBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false

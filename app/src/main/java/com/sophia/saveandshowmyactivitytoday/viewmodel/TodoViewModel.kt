@@ -1,20 +1,16 @@
 package com.sophia.saveandshowmyactivitytoday.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sophia.saveandshowmyactivitytoday.entity.Check
-import com.sophia.saveandshowmyactivitytoday.entity.Goal
+import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.repository.TodoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
-
-    val readAllData: LiveData<List<TodoEntity>> = repository.readAllData
-    val readDoneData: LiveData<List<TodoEntity>> = repository.readDoneData
     val listLiveData = repository.getAll
 
     fun addTodo(content: String, year: Int, month: Int, day: Int, date: String) {
@@ -50,5 +46,14 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
 
     fun readCheckedDateData(year: Int, month: Int, day: Int): LiveData<List<Check>> =
         repository.readCheckedDateData(year, month, day)
+
+    fun addPlan(content: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val detail = DetailPlan(content)
+            repository.addPlan(detail)
+        }
+    }
+
+    fun detailPlanLiveData(): LiveData<List<DetailPlan>>  = repository.detailPlanList
 
 }

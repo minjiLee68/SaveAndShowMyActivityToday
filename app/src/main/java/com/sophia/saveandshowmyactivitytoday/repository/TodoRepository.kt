@@ -1,13 +1,12 @@
 package com.sophia.saveandshowmyactivitytoday.repository
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
 import com.sophia.saveandshowmyactivitytoday.entity.Check
-import com.sophia.saveandshowmyactivitytoday.entity.Goal
+import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 
 class TodoRepository(application: Application) {
@@ -23,10 +22,10 @@ class TodoRepository(application: Application) {
 
     private val todoDao = db.todoDao()
     private val checkDao = db.checkDao()
+    private val detailDao = db.detailDao()
 
-    val readAllData: LiveData<List<TodoEntity>> = todoDao.readAllData()
-    val readDoneData: LiveData<List<TodoEntity>> = todoDao.readDoneData()
     val getAll: LiveData<List<TodoEntity>> = todoDao.getAll()
+    val detailPlanList: LiveData<List<DetailPlan>> = detailDao.getDetailPlan()
 
     fun readDateData(year: Int, month: Int, day: Int): LiveData<List<TodoEntity>> =
         todoDao.readDateData(year, month, day)
@@ -50,6 +49,10 @@ class TodoRepository(application: Application) {
 
     fun addCheck(check: Check) {
         checkDao.addCheck(check)
+    }
+
+    fun addPlan(content: DetailPlan) {
+        detailDao.getPlanInsert(content)
     }
 
 }

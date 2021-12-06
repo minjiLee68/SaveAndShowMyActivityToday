@@ -16,6 +16,8 @@ import com.sophia.saveandshowmyactivitytoday.database.getTodoDatabase
 import com.sophia.saveandshowmyactivitytoday.databinding.ActivityMainBinding
 import com.sophia.saveandshowmyactivitytoday.dialog.DialogTodo
 import com.sophia.saveandshowmyactivitytoday.entity.Check
+import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
+import com.sophia.saveandshowmyactivitytoday.interfaced.CheckListData
 import com.sophia.saveandshowmyactivitytoday.register.PreferenceManager
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModelFactory
@@ -23,7 +25,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity(), CustomDialogInterface, CheckListData {
+class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: TodoAdapter

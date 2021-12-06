@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sophia.saveandshowmyactivitytoday.CheckListData
+import com.sophia.saveandshowmyactivitytoday.interfaced.CheckListData
 import com.sophia.saveandshowmyactivitytoday.R
 import com.sophia.saveandshowmyactivitytoday.databinding.ListItemBinding
 import com.sophia.saveandshowmyactivitytoday.entity.CheckBox

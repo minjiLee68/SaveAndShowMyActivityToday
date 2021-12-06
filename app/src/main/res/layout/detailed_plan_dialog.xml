@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraint"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="10dp">
+    android:elevation="10dp"
+    tools:context=".dialog.DetailedPlan">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="350dp"
@@ -21,7 +22,7 @@
             android:id="@+id/edit_todo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:backgroundTint="@color/colorPrimary"
             android:ems="15"
             android:inputType="text"
@@ -34,15 +35,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/number_of_letters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="25dp"
-            android:text="2021/11/5"
-            android:textColor="@color/gray"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:layout_marginEnd="20dp"
+            android:inputType="textMultiLine"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:text="0 / 20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_todo" />
 
@@ -50,7 +50,7 @@
             android:id="@+id/save_btn"
             android:layout_width="300dp"
             android:layout_height="42dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="25dp"
             android:background="@drawable/botton_style"
             android:backgroundTint="@color/white"
             android:text="ADD TASK"

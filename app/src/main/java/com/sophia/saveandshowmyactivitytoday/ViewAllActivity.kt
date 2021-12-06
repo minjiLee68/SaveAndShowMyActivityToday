@@ -3,6 +3,7 @@ package com.sophia.saveandshowmyactivitytoday
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sophia.saveandshowmyactivitytoday.adapter.ViewAllAdapter
 import com.sophia.saveandshowmyactivitytoday.databinding.ActivityViewAllBinding
@@ -32,6 +33,7 @@ class ViewAllActivity : AppCompatActivity() {
         binding.recyclerView.let {
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            it.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
             it.setHasFixedSize(true)
         }
     }
