@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
 import com.sophia.saveandshowmyactivitytoday.entity.Check
+import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
 import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 
@@ -26,6 +27,9 @@ class TodoRepository(application: Application) {
 
     val getAll: LiveData<List<TodoEntity>> = todoDao.getAll()
     val detailPlanList: LiveData<List<DetailPlan>> = detailDao.getDetailPlan()
+
+    private val detailCheck = MutableLiveData<List<Int>>()
+    fun getDetailCheck(): LiveData<List<Int>> = detailCheck
 
     fun readDateData(year: Int, month: Int, day: Int): LiveData<List<TodoEntity>> =
         todoDao.readDateData(year, month, day)
@@ -53,6 +57,13 @@ class TodoRepository(application: Application) {
 
     fun addPlan(content: DetailPlan) {
         detailDao.getPlanInsert(content)
+    }
+
+    fun detailCheck(id: Int): LiveData<List<Int>> {
+        val list: ArrayList<Int> = arrayListOf()
+        list.add(id)
+        detailCheck.value = list
+        return detailCheck
     }
 
 }

@@ -1,11 +1,14 @@
 package com.sophia.saveandshowmyactivitytoday
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -71,6 +74,7 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
         bottomSheetButton()
         timeRemaining()
         progressBar()
+        preference()
     }
 
 
@@ -108,13 +112,30 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
         })
     }
 
+    private fun detailPlanText(detailPlan: String) {
+        preferences.putString("planText", detailPlan)
+        val detailPlanText = preferences.getString("planText")
+        binding.detailPlan.text = detailPlanText
+    }
+
+    private fun preference() {
+        viewmodel.detailPlanLiveData().observe(this, {
+                preferences.putInteger("detailSize",it.size)
+        })
+    }
+
     @SuppressLint("DiscouragedPrivateApi")
     private fun popupMenu(v: View) {
-        val detailMenus = PopupMenu(applicationContext, v)
+        val detailMenus = PopupMenu(applicationContext, v, R.style.MyPopupMenu)
         viewmodel.detailPlanLiveData().observe(this, { it ->
             try {
                 for (i in it.indices) {
                     detailMenus.menu.add(0, i, 0, it[i].content)
+
+                    val id = preferences.getInteger("itemId")
+                    if (id == it[i].id) {
+                        detailMenus.menu.removeItem(it[i].id)
+                    }
                 }
                 detailMenus.setOnMenuItemClickListener { item ->
                     val itemId = item.itemId
@@ -127,10 +148,6 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
                 e.printStackTrace()
             }
         })
-    }
-
-    private fun detailPlanText(detailPlan: String) {
-        preferences.putString("planText", detailPlan)
     }
 
     @SuppressLint("SetTextI18n")
