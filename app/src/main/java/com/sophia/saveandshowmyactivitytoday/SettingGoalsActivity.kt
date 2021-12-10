@@ -1,5 +1,6 @@
 package com.sophia.saveandshowmyactivitytoday
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -97,11 +98,11 @@ class SettingGoalsActivity : AppCompatActivity(), PlanDialogInterface {
         }
         viewmodel.detailPlanLiveData().observe(this, {
             detailPlanAdapter.submitList(it)
-            viewmodel.detailCopy()
 //            Log.d("tag",viewmodel.copyLiveData.value.toString())
         })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getCalendarDate() {
         if (dateClick) {
             binding.fragmentView.visibility = View.VISIBLE
@@ -112,6 +113,8 @@ class SettingGoalsActivity : AppCompatActivity(), PlanDialogInterface {
                     yearFormat = year
                     monthFormat = month + 1
                     dayFormat = day
+
+                    binding.date.text = "$yearFormat 년 $monthFormat 월 $dayFormat 일"
 
                     if (monthFormat < 10) {
                         dDay(yearFormat.toString(), "0$monthFormat", dayFormat.toString())

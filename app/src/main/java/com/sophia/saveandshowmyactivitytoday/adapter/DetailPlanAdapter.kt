@@ -39,19 +39,16 @@ class DetailPlanAdapter(
     inner class DetailPlanViewHolder(private val binding: ItemAddDetailedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val list: MutableList<DetailPlanCheck> = arrayListOf()
-        val id = preferenceManager.getInteger("itemId")
-
         @SuppressLint("ResourceAsColor")
         fun bind(detailPlan: DetailPlan, num: Int) {
             binding.tvDetailed.text = detailPlan.content
             binding.checkbox.setButtonDrawable(R.drawable.detail_plan_check)
 
             viewModel.planCheckLive.observeForever {
-                Log.d("a",it.toString())
+                Log.d("a", it.toString())
                 for (i in it.indices) {
                     when (detailPlan.id) {
-                        it[i].id -> {
+                        it[i].checkId -> {
                             binding.checkbox.visibility = View.GONE
                             binding.afterIv.visibility = View.VISIBLE
                             binding.tvDetailed.setTextColor(R.color.gray)
@@ -60,20 +57,9 @@ class DetailPlanAdapter(
                 }
             }
 
-//            when (detailPlan.id) {
-//                {
-//                    binding.checkbox.visibility = View.GONE
-//                    binding.afterIv.visibility = View.VISIBLE
-//                    binding.tvDetailed.setTextColor(R.color.gray)
-//                }
-//            }
-
             binding.checkbox.setOnClickListener {
-                viewModel.increase()
-                val a = viewModel.count.value
-                preferenceManager.putInteger("size", a!!)
+                viewModel.addPlanCheck(detailPlan.content, detailPlan.id)
                 preferenceManager.putInteger("itemId", detailPlan.id)
-                viewModel.addPlanCheck(detailPlan.content)
             }
         }
 

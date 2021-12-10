@@ -38,8 +38,8 @@ class PreferenceManager(context: Context) {
         editor.apply()
     }
 
-    fun getString(key: String): String {
-        return sharePreferences.getString(key,null).toString()
+    fun getString(key: String): String? {
+        return sharePreferences.getString(key,null)
     }
 
     fun clear() {

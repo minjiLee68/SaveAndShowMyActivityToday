@@ -13,26 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
-
-    var count = MutableLiveData<Int>()
-    var a = 0
-
-    var listLive = MutableLiveData<List<Int>>()
-
-    fun increase() {
-        count.value = ++a
-    }
-
-    fun live(list: ArrayList<Int>) {
-        listLive.value = list
-    }
-
-    val copyLiveData = MutableLiveData<List<DetailPlan>>()
-
-    fun detailCopy() {
-        copyLiveData.value = repository.detailPlanList.value
-    }
-
     val listLiveData = repository.getAll
 
     fun addTodo(content: String, year: Int, month: Int, day: Int, date: String) {
@@ -86,9 +66,9 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
 
     val planCheckLive = repository.planCheckList
 
-    fun  addPlanCheck(plan: String) {
+    fun  addPlanCheck(plan: String, checkId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val planText = DetailPlanCheck(plan)
+            val planText = DetailPlanCheck(plan,checkId)
             repository.addPlanCheck(planText)
         }
     }

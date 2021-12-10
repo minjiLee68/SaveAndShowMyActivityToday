@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 data class DetailPlanCheck(
     @ColumnInfo(name = "plan")
     var plan: String = "",
+    @ColumnInfo(name = "clickId")
+    var checkId: Int = 0,
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 )

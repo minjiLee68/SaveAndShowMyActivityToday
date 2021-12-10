@@ -96,37 +96,32 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
         binding.detailBtn.setOnClickListener {
             popupMenu(it)
         }
-        val detailPlanText = preferences.getString("planText")
-        binding.detailPlan.text = detailPlanText
     }
 
     private fun progressBar() {
         binding.progressBar.progress = 0
         binding.progressBar.max = 100
 
-//        viewmodel.planCheckLive.observe(this, { check ->
-//            viewmodel.copyLiveData.observe(this, {
-//                binding.progressBar.progress = ((check.size.toDouble() / it.size.toDouble()) * 100).toInt()
-//                if (check.size == it.size) {
-//                    binding.progressBar.progress = 100
-//                }
-//            })
-//        })
-
         viewmodel.planCheckLive.observe(this, { check ->
             viewmodel.detailPlanLiveData().observe(this, { plan ->
-                binding.progressBar.progress = ((check.size.toDouble() / plan.size.toDouble()) * 100).toInt()
-                if (check.size == plan.size) {
+                binding.progressBar.progress =
+                    ((check.size.toDouble() / plan.size.toDouble()) * 100).toInt()
+                if (check.isNotEmpty() && check.size == plan.size) {
                     binding.progressBar.progress = 100
                 }
             })
+            if (check.isEmpty()) {
+                binding.progressBar.progress = 0
+            }
         })
     }
 
     private fun detailPlanText(detailPlan: String) {
         preferences.putString("planText", detailPlan)
         val detailPlanText = preferences.getString("planText")
-        binding.detailPlan.text = detailPlanText
+        if (detailPlanText != null) {
+            binding.detailPlan.text = detailPlanText
+        }
     }
 
     private fun preference() {
@@ -146,6 +141,7 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
                     val id = preferences.getInteger("itemId")
                     if (id == it[i].id) {
                         detailMenus.menu.removeItem(it[i].id)
+                        Log.d("menu", detailMenus.menu[i].toString())
                     }
                 }
                 detailMenus.setOnMenuItemClickListener { item ->
@@ -164,10 +160,15 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
     @SuppressLint("SetTextI18n")
     private fun timeRemaining() {
         val mygoal = preferences.getString("mygoal")
-        binding.goalTv.text = mygoal
-
         val dDayText = preferences.getString("dDay")
-        binding.dDay.text = "D$dDayText"
+
+        if (mygoal != null) {
+            binding.goalTv.text = mygoal
+        }
+
+        if (dDayText != null) {
+            binding.dDay.text = "D$dDayText"
+        }
     }
 
 
