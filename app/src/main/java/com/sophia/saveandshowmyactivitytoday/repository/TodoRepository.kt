@@ -5,10 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
-import com.sophia.saveandshowmyactivitytoday.entity.Check
-import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
-import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
-import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
+import com.sophia.saveandshowmyactivitytoday.entity.*
 
 class TodoRepository(application: Application) {
 
@@ -24,12 +21,11 @@ class TodoRepository(application: Application) {
     private val todoDao = db.todoDao()
     private val checkDao = db.checkDao()
     private val detailDao = db.detailDao()
+    private val planCheckDao = db.planCheckDao()
 
     val getAll: LiveData<List<TodoEntity>> = todoDao.getAll()
     val detailPlanList: LiveData<List<DetailPlan>> = detailDao.getDetailPlan()
-
-    private val detailCheck = MutableLiveData<List<Int>>()
-    fun getDetailCheck(): LiveData<List<Int>> = detailCheck
+    val planCheckList: LiveData<List<DetailPlanCheck>> = planCheckDao.planCheckLiveData()
 
     fun readDateData(year: Int, month: Int, day: Int): LiveData<List<TodoEntity>> =
         todoDao.readDateData(year, month, day)
@@ -59,11 +55,13 @@ class TodoRepository(application: Application) {
         detailDao.getPlanInsert(content)
     }
 
-    fun detailCheck(id: Int): LiveData<List<Int>> {
-        val list: ArrayList<Int> = arrayListOf()
-        list.add(id)
-        detailCheck.value = list
-        return detailCheck
+    fun deletePlan(deletePlan: DetailPlan) {
+        detailDao.getPlanDelete(deletePlan)
     }
+
+    fun addPlanCheck(planCheck: DetailPlanCheck) {
+        planCheckDao.addCheck(planCheck)
+    }
+
 
 }

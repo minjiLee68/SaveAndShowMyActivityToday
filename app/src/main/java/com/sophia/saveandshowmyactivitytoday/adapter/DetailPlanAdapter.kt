@@ -1,6 +1,8 @@
 package com.sophia.saveandshowmyactivitytoday.adapter
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sophia.saveandshowmyactivitytoday.R
 import com.sophia.saveandshowmyactivitytoday.databinding.ItemAddDetailedBinding
 import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
+import com.sophia.saveandshowmyactivitytoday.entity.DetailPlanCheck
 import com.sophia.saveandshowmyactivitytoday.register.PreferenceManager
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
+import org.json.JSONArray
 
 class DetailPlanAdapter(
     private val preferenceManager: PreferenceManager,
@@ -35,43 +39,41 @@ class DetailPlanAdapter(
     inner class DetailPlanViewHolder(private val binding: ItemAddDetailedBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        val list: ArrayList<Int> = arrayListOf()
-        val idList: ArrayList<Int> = arrayListOf()
-        var count = 0
+        val list: MutableList<DetailPlanCheck> = arrayListOf()
         val id = preferenceManager.getInteger("itemId")
-        val detail = preferenceManager.getInteger("detailSize")
 
+        @SuppressLint("ResourceAsColor")
         fun bind(detailPlan: DetailPlan, num: Int) {
             binding.tvDetailed.text = detailPlan.content
             binding.checkbox.setButtonDrawable(R.drawable.detail_plan_check)
 
+            viewModel.planCheckLive.observeForever {
+                Log.d("a",it.toString())
+                for (i in it.indices) {
+                    when (detailPlan.id) {
+                        it[i].id -> {
+                            binding.checkbox.visibility = View.GONE
+                            binding.afterIv.visibility = View.VISIBLE
+                            binding.tvDetailed.setTextColor(R.color.gray)
+                        }
+                    }
+                }
+            }
 
-//            if (list.size > 0) {
-//                for (i in 0..detail) {
-//                    when (idList[i]) {
-//                        list[i] -> {
-//                            binding.checkbox.isChecked = true
-//                            binding.checkbox.visibility = View.GONE
-//                            binding.afterIv.visibility = View.VISIBLE
-//                            binding.tvDetailed.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-//                        }
-//                    }
+//            when (detailPlan.id) {
+//                {
+//                    binding.checkbox.visibility = View.GONE
+//                    binding.afterIv.visibility = View.VISIBLE
+//                    binding.tvDetailed.setTextColor(R.color.gray)
 //                }
 //            }
-//            Log.d("tag1",detailPlan.id.toString())
-//            Log.d("tag2",id.toString())
 
             binding.checkbox.setOnClickListener {
-//                for (i in 0..detail) {
-//                    list.add(num)
-//                    Log.d("tag", num.toString())
-//                }
                 viewModel.increase()
                 val a = viewModel.count.value
-
                 preferenceManager.putInteger("size", a!!)
                 preferenceManager.putInteger("itemId", detailPlan.id)
-
+                viewModel.addPlanCheck(detailPlan.content)
             }
         }
 

@@ -9,17 +9,20 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sophia.saveandshowmyactivitytoday.dao.CheckDao
 import com.sophia.saveandshowmyactivitytoday.dao.DetailPlanDao
+import com.sophia.saveandshowmyactivitytoday.dao.PlanCheckDao
 import com.sophia.saveandshowmyactivitytoday.dao.TodoDao
 import com.sophia.saveandshowmyactivitytoday.entity.Check
 import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
+import com.sophia.saveandshowmyactivitytoday.entity.DetailPlanCheck
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 
-@Database(entities = [TodoEntity::class, Check::class, DetailPlan::class], version = 2)
+@Database(entities = [TodoEntity::class, Check::class, DetailPlan::class, DetailPlanCheck::class], version = 2)
 abstract class TodoDatabase : RoomDatabase() {
 
     abstract fun todoDao(): TodoDao
     abstract fun checkDao(): CheckDao
     abstract fun detailDao(): DetailPlanDao
+    abstract fun planCheckDao(): PlanCheckDao
 
 }
 

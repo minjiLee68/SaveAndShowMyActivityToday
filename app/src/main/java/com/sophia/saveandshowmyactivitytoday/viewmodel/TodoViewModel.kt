@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sophia.saveandshowmyactivitytoday.entity.Check
 import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
+import com.sophia.saveandshowmyactivitytoday.entity.DetailPlanCheck
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.repository.TodoRepository
 import kotlinx.coroutines.Dispatchers
@@ -16,12 +17,20 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
     var count = MutableLiveData<Int>()
     var a = 0
 
-//    init {
-//        count.value = 0
-//    }
+    var listLive = MutableLiveData<List<Int>>()
 
     fun increase() {
         count.value = ++a
+    }
+
+    fun live(list: ArrayList<Int>) {
+        listLive.value = list
+    }
+
+    val copyLiveData = MutableLiveData<List<DetailPlan>>()
+
+    fun detailCopy() {
+        copyLiveData.value = repository.detailPlanList.value
     }
 
     val listLiveData = repository.getAll
@@ -67,11 +76,20 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
         }
     }
 
-    fun detailPlanLiveData(): LiveData<List<DetailPlan>> = repository.detailPlanList
-
-    fun detailCheck(id: Int): LiveData<List<Int>> {
-        repository.detailCheck(id)
-        return repository.getDetailCheck()
+    fun deletePlan(deletePlan: DetailPlan) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deletePlan(deletePlan)
+        }
     }
 
+    fun detailPlanLiveData(): LiveData<List<DetailPlan>> = repository.detailPlanList
+
+    val planCheckLive = repository.planCheckList
+
+    fun  addPlanCheck(plan: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val planText = DetailPlanCheck(plan)
+            repository.addPlanCheck(planText)
+        }
+    }
 }

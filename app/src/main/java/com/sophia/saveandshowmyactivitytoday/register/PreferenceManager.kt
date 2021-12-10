@@ -3,13 +3,15 @@ package com.sophia.saveandshowmyactivitytoday.register
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import org.json.JSONArray
+import org.json.JSONException
 
 class PreferenceManager(context: Context) {
 
     private var sharePreferences = context.getSharedPreferences("preference",Context.MODE_PRIVATE)
 
-    @SuppressLint("CommitPrefEdits")
 
+    @SuppressLint("CommitPrefEdits")
     fun putBoolean(key: String, value: Boolean) {
         val editor = sharePreferences.edit()
         editor.putBoolean(key,value)

@@ -75,6 +75,7 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
         timeRemaining()
         progressBar()
         preference()
+
     }
 
 
@@ -103,12 +104,22 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
         binding.progressBar.progress = 0
         binding.progressBar.max = 100
 
-        val size = preferences.getInteger("size")
-        viewmodel.detailPlanLiveData().observe(this, {
-            binding.progressBar.progress = ((size.toDouble() / it.size.toDouble()) * 100).toInt()
-            if (size == it.size) {
-                binding.progressBar.progress = 100
-            }
+//        viewmodel.planCheckLive.observe(this, { check ->
+//            viewmodel.copyLiveData.observe(this, {
+//                binding.progressBar.progress = ((check.size.toDouble() / it.size.toDouble()) * 100).toInt()
+//                if (check.size == it.size) {
+//                    binding.progressBar.progress = 100
+//                }
+//            })
+//        })
+
+        viewmodel.planCheckLive.observe(this, { check ->
+            viewmodel.detailPlanLiveData().observe(this, { plan ->
+                binding.progressBar.progress = ((check.size.toDouble() / plan.size.toDouble()) * 100).toInt()
+                if (check.size == plan.size) {
+                    binding.progressBar.progress = 100
+                }
+            })
         })
     }
 
@@ -120,7 +131,7 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
 
     private fun preference() {
         viewmodel.detailPlanLiveData().observe(this, {
-                preferences.putInteger("detailSize",it.size)
+            preferences.putInteger("detailSize", it.size)
         })
     }
 

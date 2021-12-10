@@ -97,6 +97,8 @@ class SettingGoalsActivity : AppCompatActivity(), PlanDialogInterface {
         }
         viewmodel.detailPlanLiveData().observe(this, {
             detailPlanAdapter.submitList(it)
+            viewmodel.detailCopy()
+//            Log.d("tag",viewmodel.copyLiveData.value.toString())
         })
     }
 
