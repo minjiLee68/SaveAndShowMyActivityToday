@@ -29,6 +29,7 @@ class CheckAdapter: ListAdapter<Check, CheckAdapter.CheckViewHolder>(
         fun bind(check: Check) {
             binding.tvText.text = check.content
             binding.tvDate.text = check.date
+            binding.checkbox.isChecked
         }
     }
 

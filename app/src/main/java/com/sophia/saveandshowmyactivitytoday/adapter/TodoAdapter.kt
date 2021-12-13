@@ -41,10 +41,10 @@ class TodoAdapter(
             this.todoViewModel = viewModel
             binding.tvText.text = todo.content
             binding.tvDate.text = todo.date
-            binding.checkbox.setButtonDrawable(R.drawable.check_box)
+            binding.checkbox.setButtonDrawable(R.drawable.detail_plan_check)
 
             if (num >= checkPosition.size) {
-                checkPosition.add(num, CheckBox(todo.id, false))
+                checkPosition.add(num, CheckBox(todo.id, true))
             }
 
             binding.checkbox.isChecked = checkPosition[num].checked
