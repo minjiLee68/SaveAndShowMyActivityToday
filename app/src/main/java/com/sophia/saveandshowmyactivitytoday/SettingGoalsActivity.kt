@@ -1,22 +1,15 @@
 package com.sophia.saveandshowmyactivitytoday
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import androidx.activity.viewModels
-import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sophia.saveandshowmyactivitytoday.adapter.CheckAdapter
 import com.sophia.saveandshowmyactivitytoday.adapter.DetailPlanAdapter
-import com.sophia.saveandshowmyactivitytoday.adapter.TodoAdapter
-import com.sophia.saveandshowmyactivitytoday.database.TodoDatabase
-import com.sophia.saveandshowmyactivitytoday.database.getTodoDatabase
 import com.sophia.saveandshowmyactivitytoday.databinding.ActivitySettingGoalsBinding
 import com.sophia.saveandshowmyactivitytoday.dialog.DetailedPlan
 import com.sophia.saveandshowmyactivitytoday.entity.DetailPlan
@@ -98,7 +91,6 @@ class SettingGoalsActivity : AppCompatActivity(), PlanDialogInterface {
         }
         viewmodel.detailPlanLiveData().observe(this, {
             detailPlanAdapter.submitList(it)
-//            Log.d("tag",viewmodel.copyLiveData.value.toString())
         })
     }
 

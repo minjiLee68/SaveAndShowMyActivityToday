@@ -63,5 +63,8 @@ class TodoRepository(application: Application) {
         planCheckDao.addCheck(planCheck)
     }
 
+    fun deletePlanCheck(planCheck: DetailPlanCheck) {
+        planCheckDao.deleteCheck(planCheck)
+    }
 
 }

@@ -72,4 +72,10 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
             repository.addPlanCheck(planText)
         }
     }
+
+    fun deletePlanCheck(planCheck: DetailPlanCheck) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deletePlanCheck(planCheck)
+        }
+    }
 }

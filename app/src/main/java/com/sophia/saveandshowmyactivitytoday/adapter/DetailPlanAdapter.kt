@@ -40,7 +40,7 @@ class DetailPlanAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("ResourceAsColor")
-        fun bind(detailPlan: DetailPlan, num: Int) {
+        fun bind(detailPlan: DetailPlan) {
             binding.tvDetailed.text = detailPlan.content
             binding.checkbox.setButtonDrawable(R.drawable.detail_plan_check)
 
@@ -75,6 +75,6 @@ class DetailPlanAdapter(
         )
 
     override fun onBindViewHolder(holder: DetailPlanViewHolder, position: Int) {
-        holder.bind(currentList[position], position)
+        holder.bind(currentList[position])
     }
 }
