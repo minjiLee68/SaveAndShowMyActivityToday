@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.DatePicker
 import androidx.activity.viewModels
@@ -143,6 +144,7 @@ class SettingGoalsActivity : AppCompatActivity(), PlanDialogInterface {
 
         val dDay = "${(time - endDate) / (60 * 60 * 24 * 1000)}"
         preferences.putString("dDay", dDay)
+        preferences.putString("date", date)
 //        Log.d("두 날짜간의 차이(일)", "${(endDate - startDate) / (24 * 60 * 60 * 1000)}")
 //        Log.d("시작일 부터 경과 일", "${(today - startDate) / (24 * 60 * 60 * 1000)}")
 //        Log.d("D_day", "${(today - endDate) / (60 * 60 * 24 * 1000)}")

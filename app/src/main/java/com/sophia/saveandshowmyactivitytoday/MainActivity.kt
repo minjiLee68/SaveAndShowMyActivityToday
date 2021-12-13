@@ -108,7 +108,6 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
                     ((check.size.toDouble() / plan.size.toDouble()) * 100).toInt()
                 if (check.isNotEmpty() && check.size == plan.size) {
                     binding.progressBar.progress = 100
-
                 }
             })
             if (check.isEmpty()) {
@@ -166,6 +165,12 @@ class MainActivity : AppCompatActivity(), TodoDialogInterface, CheckListData {
 
         if (dDayText != null) {
             binding.dDay.text = "D$dDayText"
+            if (dDayText == "0") {
+                binding.dDay.text = "D-day"
+            }
+            if (dDayText.toInt() > 0) {
+                binding.dDay.text = "D+$dDayText"
+            }
         }
 
         if (detailPlanText != null) {
