@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.378974358974359" />
+        <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/drawable/background_add_button.xml" value="0.378974358974359" />
         <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/drawable/baseline_chat_bubble_outline_24.xml" value="0.36203703703703705" />
         <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/drawable/baseline_clear_24.xml" value="0.36203703703703705" />
         <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/drawable/bottom_sheet_background.xml" value="0.35648148148148145" />
@@ -45,6 +46,7 @@
         <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/layout/viewpager_item.xml" value="0.33" />
         <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/menu/detail_plan_menu.xml" value="0.36875" />
         <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.2203125" />
+        <entry key="..\:/Users/liisiim/AndroidStudioProjects/SaveAndShowMyActivityToday/app/src/main/res/mipmap-anydpi-v26/ic_logo_round.xml" value="0.378974358974359" />
       </map>
     </option>
   </component>
