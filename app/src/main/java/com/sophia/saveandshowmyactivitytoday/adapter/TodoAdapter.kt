@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sophia.saveandshowmyactivitytoday.interfaced.CheckListData
 import com.sophia.saveandshowmyactivitytoday.R
 import com.sophia.saveandshowmyactivitytoday.databinding.ListItemBinding
-import com.sophia.saveandshowmyactivitytoday.entity.CheckBox
 import com.sophia.saveandshowmyactivitytoday.entity.TodoEntity
 import com.sophia.saveandshowmyactivitytoday.viewmodel.TodoViewModel
 
@@ -27,27 +26,18 @@ class TodoAdapter(
 
 ) {
 
-    private var checkPosition = mutableListOf<CheckBox>()
-
     inner class TodoViewHolder(
         private val binding: ListItemBinding,
         private val listener: CheckListData
     ) : RecyclerView.ViewHolder(binding.root) {
 
         private lateinit var todoViewModel: TodoViewModel
-        private var list: ArrayList<TodoEntity> = arrayListOf()
 
-        fun bind(todo: TodoEntity, viewModel: TodoViewModel, num: Int) {
+        fun bind(todo: TodoEntity, viewModel: TodoViewModel) {
             this.todoViewModel = viewModel
             binding.tvText.text = todo.content
             binding.tvDate.text = todo.date
             binding.checkbox.setButtonDrawable(R.drawable.detail_plan_check)
-
-            if (num >= checkPosition.size) {
-                checkPosition.add(num, CheckBox(todo.id, true))
-            }
-
-            binding.checkbox.isChecked = checkPosition[num].checked
 
             binding.checkbox.setOnClickListener {
                 listener.checkList(todo.content)
@@ -67,7 +57,7 @@ class TodoAdapter(
         )
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        holder.bind(getItem(position), viewModel, position)
+        holder.bind(getItem(position), viewModel)
     }
 }
 
