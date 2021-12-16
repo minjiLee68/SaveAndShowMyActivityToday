@@ -25,21 +25,18 @@
     1. 최종목표를 정하고 목표를 달성하기 까지의 D-day를 정합니다.
     2. 최종목표를 이루기 위한 세부적인 계획, 즉 작은 목표를 세웁니다.
 
-<img src="https://user-images.githubusercontent.com/88191880/146380289-3195a9ce-faae-4b78-ba5b-3a58f24b60b7.png" width="300" height="600"/>
-<img src="https://user-images.githubusercontent.com/88191880/146384359-96cc4873-8d54-4698-8570-2e4348db1c6e.png" width="300" height="600"/>
+<img src="https://user-images.githubusercontent.com/88191880/146380289-3195a9ce-faae-4b78-ba5b-3a58f24b60b7.png" width="300" height="600"/> <img src="https://user-images.githubusercontent.com/88191880/146384359-96cc4873-8d54-4698-8570-2e4348db1c6e.png" width="300" height="600"/>
 
 ## ToDoList를 통해 세부적인 계획 달성하기
     1. todoList를 통해 작은 목표들을 달성합니다. 
     2. 작은 목표를 달성하면 세부목표 정하기 화면으로 가서 완료의 의미인 체크를 표시합니다.
     3. 그러면 progressbar의 %가 올라갑니다.
-<img src="https://user-images.githubusercontent.com/88191880/146384587-541f099a-145e-416e-b580-73a21abc33ac.png" width="300" height="600"/>
-<img src="https://user-images.githubusercontent.com/88191880/146384728-924b2232-a544-4388-99c4-f04738e823b1.png" width="300" height="600"/>
+<img src="https://user-images.githubusercontent.com/88191880/146384587-541f099a-145e-416e-b580-73a21abc33ac.png" width="300" height="600"/> <img src="https://user-images.githubusercontent.com/88191880/146384728-924b2232-a544-4388-99c4-f04738e823b1.png" width="300" height="600"/>
 
 ## 오늘 하루 나의 기록보기 / 전체 기록 보기
     1. 하단에 있는 바를 누르면 오늘 하루 나의 기록을 볼 수 있습니다.
     2. [View All]를 누르면 그동안 나의 전체 기록을 볼 수 있습니다.
-<img src="https://user-images.githubusercontent.com/88191880/146385483-201952c7-6c29-43bf-8877-bee99a6f6bf3.png" width="300" height="600"/>
-<img src="https://user-images.githubusercontent.com/88191880/146385597-aa6f53bf-e3dd-4e9f-aaed-0321a31d35ed.png" width="300" height="600"/>
+<img src="https://user-images.githubusercontent.com/88191880/146385483-201952c7-6c29-43bf-8877-bee99a6f6bf3.png" width="300" height="600"/> <img src="https://user-images.githubusercontent.com/88191880/146385597-aa6f53bf-e3dd-4e9f-aaed-0321a31d35ed.png" width="300" height="600"/>
 
 ----------------------------------------------
 
